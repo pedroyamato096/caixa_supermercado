@@ -12,4 +12,6 @@ def entrar_operacao_caixa():
     menu_abertura_caixa() 
     return validar_inteiros("Entre com a operação desejada:", 1, 2)
 
-entrar_operacao_caixa()
+def menu_caixa_aberto():
+    mensagem = [["CAIXA ABERTO"]]
+    print(tabulate(mensagem, tablefmt="simple"))
