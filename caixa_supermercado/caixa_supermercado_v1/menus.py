@@ -1,4 +1,5 @@
 from tabulate import tabulate
+from utils import validar_inteiros
 
 def menu_abertura_caixa():
     largura = 50
@@ -9,16 +10,6 @@ def menu_abertura_caixa():
 
 def entrar_operacao_caixa():
     menu_abertura_caixa() 
-    while True:
-        opcao = input("Entre com a operação desejada: ")
-        if opcao.isdigit():
-            opcao_caixa = int(opcao)
-            if 1 <= opcao_caixa <= 2:
-                break
-            else:
-                print("Erro: operação inválida!")
-        else:
-            print("Erro: Digite apenas números!")  
-    return opcao_caixa
+    return validar_inteiros("Entre com a operação desejada:", 1, 2)
 
 entrar_operacao_caixa()
