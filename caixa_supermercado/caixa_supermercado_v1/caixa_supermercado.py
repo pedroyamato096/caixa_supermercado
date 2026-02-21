@@ -1,4 +1,5 @@
 from tabulate import tabulate
+from utils import *
 
 def abrir_caixa():
     print("Caixa aberto com sucesso!")
@@ -11,22 +12,21 @@ def abrir_caixa():
 ]
     return produtos
 
-
-    
-
-
-     
+def ler_dados_produto():
+    erro_id_produtos = "Erro: produto não cadastrado"
+    id_produto = validar_inteiros("Insira o ID do produto: ", 1, 5, erro_id_produtos)
+    qtd_produto = validar_quantidade_produtos("Insira a quantidade do produto:")
+    return id_produto, qtd_produto
 
 
 def criar_lista_itens_cliente(produtos):
     itens_cliente = []
     id_item = 1
-
+    id_produto, qtd_produto = ler_dados_produto()
     while True:
         
         item = []
-        id_produto = int(input("Insira o ID do produto: "))
-        qtd_produto = int(input("Digite a quantidade do produto: "))
+        
         encontrado = False
 
         for produto in produtos:
