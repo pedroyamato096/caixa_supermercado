@@ -9,19 +9,21 @@ def abrir_caixa():
     [4, "Produto 4", 4, 40],
     [5, "Produto 5", 5, 50]
     ]
-    mensagem = "Caixa aberto com sucesso!"
+    mensagem = [["Caixa aberto com sucesso!"]]
     print(tabulate(mensagem))
     return produtos
 
 def menu_atendimento():
-    mensagem = "1- Iniciar atendimento\n 2- finalizar atendimento"
+    mensagem = "1- Iniciar atendimento\n2- finalizar atendimento\n\nDigite uma das opções: "
     erro = "Operação inválida"
     operacao = validar_inteiros(mensagem, 1, 2, erro)
     return operacao
 
 def ler_dados_produto():
     erro_id_produtos = "Erro: produto não cadastrado"
-    id_produto = validar_inteiros("Insira o ID do produto (0 para finalizar): ", 1, 5, erro_id_produtos)
+    id_produto = validar_inteiros("Insira o ID do produto (0 para finalizar): ", 0, 5, erro_id_produtos)
+    if id_produto == 0:
+        return 0, 0
     qtd_produto = validar_quantidade_produtos("Insira a quantidade do produto:")
     return id_produto, qtd_produto
 
@@ -65,7 +67,7 @@ produtos = abrir_caixa()
 while True:
     opcao_caixa = menu_atendimento()
     if opcao_caixa == 1:
-        itens_cliente = criar_lista_itens_cliente()
+        itens_cliente = criar_lista_itens_cliente(produtos)
         cabecalho = ["ID Item", "Produto", "Quantidade", "Preço Unit.", "Preço Total"]
         print(tabulate(itens_cliente, headers= cabecalho))
     elif opcao_caixa == 2:
