@@ -42,37 +42,65 @@ def criar_item(id_item, produto, qtd_produto,):
 def atualizar_estoque(produto, qtd_produto):
     return produto[2] - qtd_produto
 
+def emitir_nf(lista):
+
+    id_cliente, data_hora, itens, total_itens, total_vendas = lista
+
+    cabecalho = ["ID Item", "Produto", "Quantidade", "Preço Unit.", "Preço Total"]
+
+    print(f"\nCliente: {id_cliente}    {data_hora}\n")
+
+    print(tabulate(itens, headers=cabecalho))
+
+    print(f"\nNúmero de itens: {total_itens}")
+    print(f"Total da venda: R$ {total_vendas:.2f}\n")
+
+
+def iniciar_atendimento(produtos, id_cliente):
+    lista_items = criar_lista_itens_cliente(produtos)
+    if not lista_items:
+        print("Atendimento encerrado!")
+        return None, id_cliente
+    data_hora= retornar_data_hora()
+    itens = lista_items
+    num_itens = len(lista_items)   
+    valor_total = somar_total(lista_items)
+    relatorio = [id_cliente, data_hora, itens, num_itens, valor_total]
+    id_cliente +=1 
+    return relatorio, id_cliente 
+
+     
+    
+
 
 def criar_lista_itens_cliente(produtos):
-    itens_cliente = []
     id_item = 1
+    itens_cliente = []
     while True:
         id_produto, qtd_produto = ler_dados_produto()
         if id_produto != 0:
             produto_encontrado = buscar_produto(produtos, id_produto)
             novo_item = criar_item(id_item, produto_encontrado, qtd_produto)
             itens_cliente.append(novo_item)
-            id_item += 1
             atualizar_estoque(produto_encontrado, qtd_produto)
+            id_item += 1  
         else:
-            return itens_cliente 
-
-
-         
-
-        
+            return itens_cliente
         
 
 produtos = abrir_caixa()
+id_cliente = 1
 while True:
     opcao_caixa = menu_atendimento()
     if opcao_caixa == 1:
-        itens_cliente = criar_lista_itens_cliente(produtos)
-        cabecalho = ["ID Item", "Produto", "Quantidade", "Preço Unit.", "Preço Total"]
-        print(tabulate(itens_cliente, headers= cabecalho))
+        relatorio, id_cliente = iniciar_atendimento(produtos, id_cliente)
+        if not relatorio:
+            continue
+        emitir_nf(relatorio)
     elif opcao_caixa == 2:
         print("caixa finalizado")
         break
             
 
+# criar a funcao de sangria
 

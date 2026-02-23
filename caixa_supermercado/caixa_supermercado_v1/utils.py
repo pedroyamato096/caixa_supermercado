@@ -1,3 +1,5 @@
+from datetime import datetime
+
 def validar_inteiros(mensagem, valor_minimo, valor_maximo, erro):
     while True:
         operacao = input(mensagem)
@@ -24,7 +26,17 @@ def validar_quantidade_produtos(mensagem):
             continue
         else:
             return qtd_total
+        
+def retornar_data_hora():
+    agora = datetime.now()
+    data_hora = agora.strftime("%d/%m/%Y %H:%M")
+    return data_hora
 
+def somar_total(lista):
+    valor_total = 0
+    for item in lista:
+        valor_total += item[-1]
+    return valor_total
 
             
         
