@@ -38,3 +38,16 @@ def validar_inteiro(msg, erro):
         except:
             print(erro)
     return num 
+
+
+def obter_opcao_valida(mensagem, opcoes_validas):
+    while True:
+        entrada = input(mensagem).strip()
+        try:
+            opcao_escolhida = int(entrada)
+            if opcao_escolhida in opcoes_validas:
+                return opcao_escolhida
+            else:
+                print(f"Erro: Opção inválida. Escolha uma das opções permitidas")          
+        except ValueError:
+            print("Erro: Entrada inválida. Por favor, digite apenas números inteiros.")
