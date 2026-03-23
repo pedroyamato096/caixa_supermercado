@@ -1,5 +1,7 @@
 from constantes import *
 
+from datetime import datetime
+
 def entrar_id():
     while True:
         perguntar_id = "Entre o id do produto: " 
@@ -62,3 +64,8 @@ def criar_item_compra(id_item, produto, quantidade_comprada):
     novo_item = [id_item, nome_produto, quantidade_comprada, preco_unitario, preco_total]
     
     return novo_item
+
+def retornar_data_hora():
+    agora = datetime.now()
+    data_hora = agora.strftime("%d/%m/%Y %H:%M")
+    return data_hora

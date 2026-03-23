@@ -42,6 +42,9 @@ def realizar_atendimento(numero_cliente):
             atualizar_estoque(produto_encontrado, qtd)
             print("Item adicionado com sucesso!")
         elif opcao_atendimento == OPCAO_FINALIZAR_ATENDIMENTO:
+            total_da_compra = calcular_total_compra(carrinho_cliente)
+            data_hora_emissao = retornar_data_hora()
+            exibir_nota_fiscal(carrinho_cliente, numero_cliente, total_da_compra, data_hora_emissao)
             atendimento_em_andamento = False        
         else:
             print("Erro: Opção inválida. Tente novamente.")
