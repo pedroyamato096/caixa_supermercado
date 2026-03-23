@@ -1,3 +1,5 @@
+from constantes import *
+
 def entrar_id():
     while True:
         perguntar_id = "Entre o id do produto: " 
@@ -51,3 +53,12 @@ def obter_opcao_valida(mensagem, opcoes_validas):
                 print(f"Erro: Opção inválida. Escolha uma das opções permitidas")          
         except ValueError:
             print("Erro: Entrada inválida. Por favor, digite apenas números inteiros.")
+
+
+def criar_item_compra(id_item, produto, quantidade_comprada):
+    nome_produto = produto[PRODUTO_IDX_NOME]
+    preco_unitario = produto[PRODUTO_IDX_PRECO]
+    preco_total = preco_unitario * quantidade_comprada
+    novo_item = [id_item, nome_produto, quantidade_comprada, preco_unitario, preco_total]
+    
+    return novo_item

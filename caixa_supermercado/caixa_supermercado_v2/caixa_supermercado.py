@@ -27,21 +27,26 @@ def iniciar_sistema():
             print("Erro: Opção inválida. Tente novamente.")
 
 def realizar_atendimento(numero_cliente):
+    # lista de lista de compras
+    carrinho_cliente = []
     atendimento_em_andamento = True
     while atendimento_em_andamento:
         opcao_atendimento = exibir_menu_atendimento(numero_cliente)
         if opcao_atendimento == OPCAO_INSERIR_ITEM:
-            print("Inserindo item...") 
+            id = entrar_id()
+            qtd = entrar_qtd()
+            produto_encontrado = pesquisar_produto(id, produtos)
+            id_item = len(carrinho_cliente) + 1
+            novo_item = criar_item_compra(id_item, produto_encontrado, qtd )
+            carrinho_cliente.append(novo_item)
+            atualizar_estoque(produto_encontrado, qtd)
+            print("Item adicionado com sucesso!")
         elif opcao_atendimento == OPCAO_FINALIZAR_ATENDIMENTO:
             atendimento_em_andamento = False        
         else:
             print("Erro: Opção inválida. Tente novamente.")
 
-# produtos = criar_lista_produtos()
-# abrir_caixa = exibir_menu_caixa()
-# realizar_atendimento = exibir_menu_atendimento(1)
-# id = entrar_id()
-# qtd = entrar_qtd()
-# produto_encontrado = pesquisar_produto(id, produtos)
-# atualizar_estoque(produto_encontrado, qtd)
-# print(produtos)
+produtos = criar_lista_produtos()
+iniciar_sistema()
+realizar_atendimento()
+
