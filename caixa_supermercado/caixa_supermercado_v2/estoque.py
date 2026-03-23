@@ -10,3 +10,31 @@ def calcular_total_compra(carrinho_cliente):
         total += item[ITEM_IDX_PRECO_TOT] 
         
     return total
+
+def pesquisar_produto(id, produtos):
+    produto_procurado = []
+    for produto in produtos:
+        if produto[0] == id:
+            produto_procurado = produto
+            break
+    return produto_procurado
+
+def criar_item_compra(id_item, produto, quantidade_comprada):
+    nome_produto = produto[PRODUTO_IDX_NOME]
+    preco_unitario = produto[PRODUTO_IDX_PRECO]
+    preco_total = preco_unitario * quantidade_comprada
+    novo_item = [id_item, nome_produto, quantidade_comprada, preco_unitario, preco_total]
+    
+    return novo_item
+
+def obter_produtos_sem_estoque(lista_produtos):
+    """
+    Percorre o estoque e retorna uma nova lista contendo apenas 
+    os produtos com quantidade menor ou igual a zero.
+    """
+    produtos_zerados = []
+    for produto in lista_produtos:
+        if produto[PRODUTO_IDX_ESTOQUE] <= 0:
+            produtos_zerados.append(produto)
+            
+    return produtos_zerados

@@ -1,16 +1,17 @@
 from constantes import *
-
 from datetime import datetime
+from estoque import *
 
-def entrar_id():
+def entrar_id(produtos):
     while True:
         perguntar_id = "Entre o id do produto: " 
         erro_id = "Erro: Digite um id válido!"
         id = validar_inteiro(perguntar_id, erro_id)
-        if 1 <= id <= 5:
+        produto_encontrado = pesquisar_produto(id, produtos)
+        if produto_encontrado: 
             break
         else:
-            print("Erro: id não encontrado!")    
+            print("Erro: Produto não encontrado! Tente novamente.")        
     return id
 
 def entrar_qtd():
@@ -24,16 +25,6 @@ def entrar_qtd():
             print("Erro: quantidade deve ser maior que 0!")    
     return qtd
   
-def pesquisar_produto(id, produtos):
-    # essa função vai me retornar o produto pesquisado
-    produto_procurado = []
-    for produto in produtos:
-        if produto[0] == id:
-            produto_procurado = produto
-            break
-    return produto_procurado
-
-
 def validar_inteiro(msg, erro):
     while True:
         try: 
@@ -42,7 +33,6 @@ def validar_inteiro(msg, erro):
         except:
             print(erro)
     return num 
-
 
 def obter_opcao_valida(mensagem, opcoes_validas):
     while True:
@@ -56,14 +46,6 @@ def obter_opcao_valida(mensagem, opcoes_validas):
         except ValueError:
             print("Erro: Entrada inválida. Por favor, digite apenas números inteiros.")
 
-
-def criar_item_compra(id_item, produto, quantidade_comprada):
-    nome_produto = produto[PRODUTO_IDX_NOME]
-    preco_unitario = produto[PRODUTO_IDX_PRECO]
-    preco_total = preco_unitario * quantidade_comprada
-    novo_item = [id_item, nome_produto, quantidade_comprada, preco_unitario, preco_total]
-    
-    return novo_item
 
 def retornar_data_hora():
     agora = datetime.now()

@@ -33,4 +33,27 @@ def exibir_nota_fiscal(carrinho_cliente, cliente, total_compra, data_hora):
     print("=" * 40 + "\n")
     
 
+def exibir_fechamento_caixa(historico_vendas, total_caixa, produtos_sem_estoque, data_hora):
+    print("\n" + "=" * 50)
+    print("FECHAMENTO DO CAIXA".center(50))
+    print(f"Emissão: {data_hora}".center(50))
+    print("=" * 50)
+    
+    print("\n--- RESUMO DE VENDAS ---")
+    if len(historico_vendas) > 0:
+        cabecalhos_vendas = ["Cliente", "Total da Compra"]
+        print(tabulate(historico_vendas, headers=cabecalhos_vendas, floatfmt=".2f"))
+        print("-" * 50)
+        print(f"TOTAL GERAL DO CAIXA: R$ {total_caixa:.2f}")
+    else:
+        print("Nenhuma venda foi realizada neste turno.")
+        
+   
+    print("\n--- PRODUTOS SEM ESTOQUE ---")
+    if len(produtos_sem_estoque) > 0:
+        cabecalhos_estoque = ["ID", "Produto", "Estoque", "Preço"]
+        print(tabulate(produtos_sem_estoque, headers=cabecalhos_estoque))
+    else:
+        print("Todos os produtos possuem estoque disponível.") 
+    print("=" * 50 + "\n")
     
