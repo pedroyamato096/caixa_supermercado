@@ -1,4 +1,5 @@
 from menus import *
+from arquivo import *
 
 def realizar_atendimento(numero_cliente, produtos):
     carrinho_cliente = []
@@ -20,10 +21,12 @@ def realizar_atendimento(numero_cliente, produtos):
                 print(f"Erro: Estoque insuficiente! Estoque atual: {produto_encontrado["estoque"]}")
                 print("Por favor, selecione um novo produto.")         
         elif opcao_atendimento == OPCAO_FINALIZAR_ATENDIMENTO:
+            print(carrinho_cliente)
             atendimento_em_andamento = False    
             total_da_compra = calcular_total_compra(carrinho_cliente)
             data_hora_emissao = retornar_data_hora()
             exibir_nota_fiscal(carrinho_cliente, numero_cliente, total_da_compra, data_hora_emissao)
+            gravar_produtos(produtos)
             return total_da_compra   
         else:
             print("Erro: Opção inválida. Tente novamente.")

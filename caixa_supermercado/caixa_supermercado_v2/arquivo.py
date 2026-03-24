@@ -1,4 +1,5 @@
 import os.path 
+from constantes import *
 
 ARQ = "produtos.csv"
 DIR = os.path.dirname(os.path.abspath(__file__))
@@ -19,6 +20,18 @@ def ler_produtos():
         print("Erro: leitura do arquivo", ex)
         exit
     return produtos
+
+def gravar_produtos(produtos):
+    try: 
+        with open(ARQ, mode="w", encoding="UTF-8") as arquivo:
+            for produto in produtos:
+                linha_formatada = f"{produto['id']},{produto['item']},{produto['estoque']},{produto['preço']}\n"
+                arquivo.write(linha_formatada)   
+        print("Arquivo CSV atualizado com sucesso!")
+    except Exception as ex:
+        print("Erro: gravação do arquivo", ex)
+
+        
 
 # produtos = [
 #     {"id": 1, "nome": "Produto 1", "quantidade": 1, "preco": 10},
