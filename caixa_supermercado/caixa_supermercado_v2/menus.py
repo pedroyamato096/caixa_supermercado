@@ -51,8 +51,8 @@ def exibir_fechamento_caixa(historico_vendas, total_caixa, produtos_sem_estoque,
    
     print("\n--- PRODUTOS SEM ESTOQUE ---")
     if len(produtos_sem_estoque) > 0:
-        cabecalhos_estoque = ["ID", "Produto", "Estoque", "Preço"]
-        print(tabulate(produtos_sem_estoque, headers=cabecalhos_estoque))
+        # cabecalhos_estoque = ["ID", "Produto", "Estoque", "Preço"]
+        print(tabulate(produtos_sem_estoque, headers="keys"))
     else:
         print("Todos os produtos possuem estoque disponível.") 
     print("=" * 50 + "\n")
