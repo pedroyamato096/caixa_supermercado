@@ -10,7 +10,7 @@ def realizar_atendimento(numero_cliente, produtos):
             produto_encontrado = pesquisar_produto(id, produtos)
             while True:
                 qtd = entrar_qtd()
-                if produto_encontrado[PRODUTO_IDX_ESTOQUE] >= qtd:
+                if produto_encontrado["estoque"] >= qtd:
                     break
                 else:
                     print(f"Erro: Estoque insuficiente! Estoque atual: {produto_encontrado[PRODUTO_IDX_ESTOQUE]}")

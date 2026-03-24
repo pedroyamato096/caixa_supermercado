@@ -4,6 +4,7 @@ from estoque import *
 from menus import *
 from fechamento_caixa import *
 from atendimento import *
+from arquivo import *
 
 def iniciar_sistema(produtos):
     numero_cliente_atual = 1
@@ -25,5 +26,5 @@ def iniciar_sistema(produtos):
         else:
             print("Erro: Opção inválida. Tente novamente.")
 
-produtos = criar_lista_produtos()
+produtos = ler_produtos()
 iniciar_sistema(produtos)
