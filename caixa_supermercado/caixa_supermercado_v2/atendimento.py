@@ -3,23 +3,22 @@ from menus import *
 def realizar_atendimento(numero_cliente, produtos):
     carrinho_cliente = []
     atendimento_em_andamento = True
+    
     while atendimento_em_andamento:
         opcao_atendimento = exibir_menu_atendimento(numero_cliente)
         if opcao_atendimento == OPCAO_INSERIR_ITEM:
             id = entrar_id(produtos)
             produto_encontrado = pesquisar_produto(id, produtos)
-            while True:
-                qtd = entrar_qtd()
-                if produto_encontrado["estoque"] >= qtd:
-                    break
-                else:
-                    print(f"Erro: Estoque insuficiente! Estoque atual: {produto_encontrado[PRODUTO_IDX_ESTOQUE]}")
-                    
-            id_item = len(carrinho_cliente) + 1
-            novo_item = criar_item_compra(id_item, produto_encontrado, qtd )
-            carrinho_cliente.append(novo_item)
-            atualizar_estoque(produto_encontrado, qtd)
-            print("Item adicionado com sucesso!")
+            qtd = entrar_qtd()
+            if produto_encontrado["estoque"] >= qtd:
+                id_item = len(carrinho_cliente) + 1
+                novo_item = criar_item_compra(id_item, produto_encontrado, qtd)
+                carrinho_cliente.append(novo_item)
+                atualizar_estoque(produto_encontrado, qtd)
+                print("Item adicionado com sucesso!")
+            else:
+                print(f"Erro: Estoque insuficiente! Estoque atual: {produto_encontrado["estoque"]}")
+                print("Por favor, selecione um novo produto.")         
         elif opcao_atendimento == OPCAO_FINALIZAR_ATENDIMENTO:
             atendimento_em_andamento = False    
             total_da_compra = calcular_total_compra(carrinho_cliente)
