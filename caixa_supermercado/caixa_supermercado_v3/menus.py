@@ -33,27 +33,31 @@ def exibir_nota_fiscal(carrinho_cliente, cliente, total_compra, data_hora):
     print("=" * 40 + "\n")
     
 
+from tabulate import tabulate
+
 def exibir_fechamento_caixa(historico_vendas, total_caixa, produtos_sem_estoque, data_hora):
-    print("\n" + "=" * 50)
-    print("FECHAMENTO DO CAIXA".center(50))
-    print(f"Emissão: {data_hora}".center(50))
-    print("=" * 50)
+    tabela_cabecalho = [["FECHAMENTO DO CAIXA", f"Emissão: {data_hora}"]]
+    print("\n" + tabulate(tabela_cabecalho, tablefmt="fancy_grid"))
     
-    print("\n--- RESUMO DE VENDAS ---")
     if len(historico_vendas) > 0:
-        cabecalhos_vendas = ["Cliente", "Total da Compra"]
-        print(tabulate(historico_vendas, headers=cabecalhos_vendas, floatfmt=".2f"))
-        print("-" * 50)
-        print(f"TOTAL GERAL DO CAIXA: R$ {total_caixa:.2f}")
+        dados_vendas = list(historico_vendas)
+        dados_vendas.append(["TOTAL GERAL DO CAIXA", total_caixa])
+        print(tabulate(dados_vendas, headers=["RESUMO DE VENDAS (Cliente)", "VALOR (R$)"], tablefmt="fancy_grid", floatfmt=".2f"))
     else:
-        print("Nenhuma venda foi realizada neste turno.")
-        
-   
-    print("\n--- PRODUTOS SEM ESTOQUE ---")
+        print(tabulate([["Nenhuma venda foi realizada neste turno."]], headers=["RESUMO DE VENDAS"], tablefmt="fancy_grid"))
+       
     if len(produtos_sem_estoque) > 0:
-        # cabecalhos_estoque = ["ID", "Produto", "Estoque", "Preço"]
-        print(tabulate(produtos_sem_estoque, headers="keys"))
+        cabecalhos_estoque = ["ID", "PRODUTOS SEM ESTOQUE", "Estoque", "Preço (R$)"]
+        dados_estoque = []
+        for produto in produtos_sem_estoque:
+            dados_estoque.append([
+                produto.id,
+                produto.produto,
+                produto.qtd,
+                produto.preco
+            ])
+        print(tabulate(dados_estoque, headers=cabecalhos_estoque, tablefmt="fancy_grid", floatfmt=".2f"))
     else:
-        print("Todos os produtos possuem estoque disponível.") 
-    print("=" * 50 + "\n")
+        print(tabulate([["Todos os produtos possuem estoque disponível."]], headers=["PRODUTOS SEM ESTOQUE"], tablefmt="fancy_grid"))
     
+    print("\n")

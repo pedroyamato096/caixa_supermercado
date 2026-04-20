@@ -11,14 +11,14 @@ def realizar_atendimento(numero_cliente, produtos):
             id = entrar_id(produtos)
             produto_encontrado = pesquisar_produto(id, produtos)
             qtd = entrar_qtd()
-            if produto_encontrado["estoque"] >= qtd:
+            if produto_encontrado.qtd >= qtd:
                 id_item = len(carrinho_cliente) + 1
                 novo_item = criar_item_compra(id_item, produto_encontrado, qtd)
                 carrinho_cliente.append(novo_item)
                 atualizar_estoque(produto_encontrado, qtd)
                 print("Item adicionado com sucesso!")
             else:
-                print(f"Erro: Estoque insuficiente! Estoque atual: {produto_encontrado["estoque"]}")
+                print(f"Erro: Estoque insuficiente! Estoque atual: {produto_encontrado.qtd}")
                 print("Por favor, selecione um novo produto.")         
         elif opcao_atendimento == OPCAO_FINALIZAR_ATENDIMENTO:
             print(carrinho_cliente)
