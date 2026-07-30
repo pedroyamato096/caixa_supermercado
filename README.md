@@ -1,103 +1,57 @@
 # 🛒 Sistema de Caixa de Supermercado
 
-Sistema de caixa para um pequeno supermercado desenvolvido em Python, como projeto evolutivo da disciplina de Programação em Backend. O projeto passou por 4 etapas incrementais, cada uma adicionando novas funcionalidades e melhores práticas de desenvolvimento.
-
----
-
-## 📋 Funcionalidades
-
-- Abertura e fechamento de caixa
-- Atendimento de múltiplos clientes sequencialmente
-- Registro de produtos e quantidades por cliente
-- Emissão de nota fiscal por atendimento (com agrupamento de itens duplicados)
-- Extrato de fechamento com total de vendas e clientes atendidos
-- Relatório de produtos sem estoque
-- Controle de estoque com persistência em banco de dados SQLite
-- Importação de produtos via arquivo CSV
+Sistema de caixa para um pequeno supermercado desenvolvido em Python durante a disciplina de Programação em Backend. O projeto foi construído em etapas ao longo do semestre, cada versão adicionando novas funcionalidades e refatorando o que já existia.
 
 ---
 
 ## 🚀 Evolução do projeto
 
-### TP1 — Base do sistema
-- Estrutura inicial do caixa com lista de produtos hardcoded
-- Atendimento de múltiplos clientes com identificação automática (Cliente 1, Cliente 2...)
-- Nota fiscal por cliente com tabela de itens e total da compra
-- Fechamento de caixa com extrato de vendas e produtos sem estoque
-- Restrição: apenas listas e tuplas (sem dicionários)
+### TP1 — Primeira versão
+Lógica básica do caixa usando apenas listas e tuplas. O programa abre o caixa, atende vários clientes, emite nota fiscal para cada um e exibe um extrato no fechamento com o total de vendas e os produtos sem estoque.
 
 ### TP2 — Leitura de arquivo e dicionários
-- Produtos carregados de arquivo `produtos.csv` no início do programa
-- Cada produto passou a ser representado como **dicionário**
-- Estoque atualizado e gravado de volta no CSV ao fechar o caixa
+Os produtos passaram a ser carregados de um arquivo CSV e armazenados como dicionários. Ao fechar o caixa, o estoque atualizado é gravado de volta no arquivo.
 
 ### TP3 — Orientação a Objetos
-- Criação da **classe `Produto`** com construtor, métodos e `__str__`
-- Produtos passaram a ser objetos instanciados a partir do CSV
-- Manutenção de toda a lógica de negócio das versões anteriores
+Criação da classe Produto com construtor, métodos e __str__. Os produtos passaram a ser objetos instanciados a partir do CSV.
 
-### TP4 — Arquitetura em camadas + banco de dados
-- Banco de dados **SQLite** com script de criação separado
-- Importação do CSV para o banco via **Pandas + SQLAlchemy**
-- Arquitetura em camadas:
-  - `produto_repository.py` — acesso direto ao banco (CRUD)
-  - `produto_service.py` — regras de negócio e validações
-  - `produto_crud.py` — interface administrativa
-  - `produto_cliente.py` — testes das funcionalidades de serviço
-- Nota fiscal com **agrupamento de produtos duplicados** via Pandas
+### TP4 — Banco de dados e arquitetura em camadas
+Maior refatoração do projeto. Os produtos passaram a ser persistidos em um banco SQLite, com importação via Pandas e SQLAlchemy. O código foi reorganizado em camadas:
+
+- produto_repository.py — acesso ao banco (CRUD)
+- produto_service.py — regras de negócio e validações
+- produto_crud.py — interface administrativa
+- produto_cliente.py — testes da camada de serviço
+
+A nota fiscal também ganhou agrupamento de itens duplicados usando Pandas.
 
 ---
 
-## 🗂️ Estrutura do projeto (TP4)
+## 🛠️ Tecnologias
 
-```
-projeto/
-├── Dados/
-│   ├── produtos.csv
-│   ├── mercado.db
-│   └── criar_banco.sql
-├── produto_repository.py
-├── produto_service.py
-├── produto_crud.py
-├── produto_cliente.py
-├── importar_dados.py
-└── main.py
-```
+- Python 3
+- Pandas
+- SQLAlchemy
+- SQLite
+- Tabulate
 
 ---
 
-## 🛠️ Tecnologias utilizadas
+## ▶️ Como rodar
 
-- **Python 3**
-- **Pandas** — leitura de CSV e agrupamento de dados
-- **SQLAlchemy** — engine de conexão com o banco
-- **SQLite** — banco de dados local
-- **Tabulate** — formatação de tabelas no terminal
-
----
-
-## ▶️ Como executar
-
-**Pré-requisitos:**
-```bash
+Instala as dependências:
 pip install pandas sqlalchemy tabulate
-```
 
-**Antes de rodar pela primeira vez**, execute o script de criação do banco:
-```bash
+Cria o banco antes de rodar pela primeira vez:
 sqlite3 Dados/mercado.db < Dados/criar_banco.sql
-```
 
-**Para iniciar o sistema:**
-```bash
+Inicia o sistema:
 python main.py
-```
 
 ---
 
 ## 📌 Observações
 
-- O banco de dados **não é criado pelo código** — use o script SQL antes de rodar
-- A importação do CSV para o banco ocorre automaticamente na abertura do caixa
-- O sistema evita duplicação de produtos no banco em reinicializações consecutivas
-- Nenhuma variável global é utilizada — toda comunicação é por passagem de parâmetros
+- O banco não é criado pelo código, precisa rodar o script SQL antes
+- A importação do CSV acontece automaticamente ao abrir o caixa
+- Nenhuma variável global foi utilizada, tudo é feito por passagem de parâmetros
